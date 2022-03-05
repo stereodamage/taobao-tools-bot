@@ -22,27 +22,23 @@ async def echo_message(msg: types.Message):
     print(msg)
     await msg.reply(convert_url(msg.text))
 
-if __name__ == '__main__':
-    logging.warning('started')
-    executor.start_polling(dp)
 
-#
-# async def on_startup(dp):
-#     logging.warning('Starting connection. ')
-#     await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
-#
-#
-# async def on_shutdown(dp):
-#     logging.warning('Bye! Shutting down webhook connection')
-#
-#
-# def main():
-#     logging.basicConfig(level=logging.INFO)
-#     start_webhook(
-#         dispatcher=dp,
-#         webhook_path=WEBHOOK_PATH,
-#         skip_updates=True,
-#         on_startup=on_startup,
-#         host=WEBAPP_HOST,
-#         port=WEBAPP_PORT,
-#     )
+async def on_startup(dp):
+    logging.warning('Starting connection. ')
+    await bot.set_webhook(WEBHOOK_URL, drop_pending_updates=True)
+
+
+async def on_shutdown(dp):
+    logging.warning('Bye! Shutting down webhook connection')
+
+
+def main():
+    logging.basicConfig(level=logging.INFO)
+    start_webhook(
+        dispatcher=dp,
+        webhook_path=WEBHOOK_PATH,
+        skip_updates=True,
+        on_startup=on_startup,
+        host=WEBAPP_HOST,
+        port=WEBAPP_PORT,
+    )
