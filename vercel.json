@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+      {
+          "src": "*.py",
+          "use": "@stereodamage/taobao-tools-bot"
+      }
+  ],
+  "routes": [
+      {
+          "src": "(.*)",
+          "dest": "bot/bot.py"
+      }
+  ]
+}
