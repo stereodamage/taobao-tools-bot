@@ -16,4 +16,7 @@ WEBHOOK_URL = f'{WEBHOOK_HOST}{WEBHOOK_PATH}'
 
 # webserver settings
 WEBAPP_HOST = '0.0.0.0'
-WEBAPP_PORT = int(os.getenv('PORT'))
+WEBAPP_PORT = int(os.getenv('PORT', '3001'))
+
+# group settings
+CHAT_ID = os.getenv('CHAT_ID')
