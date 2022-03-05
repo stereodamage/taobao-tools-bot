@@ -9,11 +9,13 @@ from aiogram.utils.executor import start_webhook
 
 from utils import convert_url
 
+
+WEBHOOK_HOST = ''
 WEBHOOK_PATH = ''
 WEBHOOK_URL = ''
 PROXY = 'http://proxy.server:3128'
 
-bot = Bot(token=os.getenv('TOKEN', '5121542031:AAGGF2NgY3LiMOjZfvg9szIWIpVBkZDKCZc'))
+bot = Bot(token=os.getenv('TOKEN', ''), proxy=PROXY)
 dp = Dispatcher(bot)
 
 
@@ -36,13 +38,6 @@ async def on_shutdown(dp):
     await dp.storage.wait_closed()
 
 
-async def classic_bot_start():
-    await bot.delete_webhook(drop_pending_updates=True)
-
-    await dp.skip_updates()  # пропуск накопившихся апдейтов (необязательно)
-    await dp.start_polling()
-
-
 def main():
     logging.basicConfig(level=logging.INFO)
     start_webhook(dispatcher=dp,
@@ -53,6 +48,14 @@ def main():
                   host='0.0.0.0',
                   port=3001,
                   )
+    webhook = await bot.get_webhook_info()
+
+    # If URL is bad
+    if webhook.url != WEBHOOK_URL:
+        # If URL doesnt match current - remove webhook
+        if not webhook.url:
+            await bot.delete_webhook()
+    await bot.set_webhook(WEBHOOK_URL)
 
 
 if __name__ == '__main__':
