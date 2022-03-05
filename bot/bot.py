@@ -8,8 +8,8 @@ from aiogram.utils import executor
 
 from aiogram.utils.executor import start_webhook
 
-from settings import WEBAPP_HOST, WEBAPP_PORT, BOT_TOKEN, WEBHOOK_URL, WEBHOOK_PATH
-from utils import convert_url
+from bot.settings import WEBAPP_HOST, WEBAPP_PORT, BOT_TOKEN, WEBHOOK_URL, WEBHOOK_PATH
+from bot.utils import convert_url
 
 
 bot = Bot(token=BOT_TOKEN)
